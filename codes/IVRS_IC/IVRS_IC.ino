@@ -8,6 +8,7 @@
 #define VOLUME 0x4400
 
 
+
 void setup() {
   pinMode(CLK_AP,OUTPUT);
   pinMode(DATA_AP,OUTPUT);
@@ -18,7 +19,14 @@ void setup() {
 }
 
 
+
 void loop() {
+  Play_Group(0,POWER_UP);
+  delay(100);
+  //Play_Group(15,VOLUME);
+  delay(100);
+  Play_Group(36,PLAY);
+  while(1);
   // put your main code here, to run repeatedly:
 
 }
@@ -32,10 +40,10 @@ void Play_Group(uint16_t Address,uint16_t Command)
   delayMicroseconds(2);
   digitalWrite(DATA_AP,LOW);
   delayMicroseconds(2);
-  for (uint16_t i=0x8000;i>0;i=i>>1)
+  for (uint16_t i=0x8000;i>0;i>>=1)
   {
     digitalWrite(CLK_AP,LOW);
-    if(i)
+    if(i&Group_Command)
     {
      digitalWrite(DATA_AP,HIGH); 
     }
