@@ -49,3 +49,20 @@ void readPCF8563(){
   month      = bcdToDec(Wire.read() & B00011111);  
   year       = bcdToDec(Wire.read());
 }
+
+
+rtc convertion setting timing and date
+if( Serial.available())
+{
+char ch = Serial.read();
+if( isDigit(ch) )// is this an ascii digit between 0 and 9?
+{
+value = (value * 10) + (ch - '0'); // yes, accumulate the value
+}
+else if (ch == 10) // is the character the newline character?
+{
+blinkRate = value; // set blinkrate to the accumulated value
+Serial.println(blinkRate);
+value = 0; // reset val to 0 ready for the next sequence of digits
+}
+}
