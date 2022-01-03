@@ -1,0 +1,1415 @@
+;*******************************************************************************
+; APLUS Inc 23KW-SoftWare Version: V2.5 	 
+; Date : 03-01-2022 12:58:02
+; Check Sum : 22BB
+; ------------------------------------------------------------------------------
+; DEVICE : aP23341 - 8Pin
+; Mode : I2C Mode
+; Low Voltage : 3V 
+; Voice OutPut : PWM ,High Volume 
+; Debounce Time : 65uS 
+; Use : Volume Control 
+; Vol Level : 16 & Vol Default : 16
+; Warp : Disable 
+; Oscillator : Int 
+; LVD : Off 
+; OutPut1 : Busy- H
+;===============================================================================
+; Script for generate Voice file "AP25XX" 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Global $MainClk	=	32768000
+.Global $FileSize	=	100000H
+.CfgMem	 Func	   	=	5
+.CfgMem  FuncOpt	=	03FEH
+.CfgMem  SecChk		=	1
+.CfgMem  POPen		=	0
+.CfgMem  paritychk	=	0
+.CfgMem  PullUI		=	3
+.CfgMem  PullSI		=	0
+.CfgMem  Cur2Sbt	=	0
+.CfgMem  xOPTEn		=	1
+.CfgMem  xOpt		=	01BH
+.CfgMem  XtCfg		=	0
+.CfgMem  RoscSel0	=	3
+.CfgMem  RoscSel1	=	0
+.CfgMem  RoscSel2	=	0
+.CfgMem  RoscSel3	=	0
+.CfgMem  RoscSel4	=	0
+.CfgMem  RoscSet	=	1
+.CfgMem  CkOnPause	=	0
+.CfgMem  VolPin		=	1
+.CfgMem  VolWarp	=	0
+.CfgMem  MuteEn		=	0
+.CfgMem  DacOnMute	=	1
+.CfgMem  MaxVol		=	15
+.CfgMem  DefVol		=	0
+.Global $Vol_MAP	=	"7069625B544D463F38312A231C150E07"
+.CfgMem  PwrCtrl	=	3
+.CfgMem  SrcSpd		=	2
+.CfgMem  dbck_ui  	=	4
+.CfgMem  dbck_si  	=	15
+.CfgMem  WakeUp  	=	0
+.CfgMem  WaitTime  	=	3
+;===============================================================================
+.CfgMem  UsePwm  	=	1
+.CfgMem  UseDac   	=	0
+.CfgMem  pwmckph   	=	1
+.CfgMem  pwmclk  	=	1
+.CfgMem  pwmdrv   	=	15
+.CfgMem  PwmSlew  	=	0
+.CfgMem  pwmext   	=	1
+.CfgMem  pwmbits   	=	9
+.CfgMem  dacsrc   	=	2
+.CfgMem  dacbits    	=	16
+.CfgMem  mrate    	=	1
+.CfgMem  mmode    	=	0
+.CfgMem  mod1    	=	12
+.CfgMem  mod0		=	16
+.CfgMem  RampUp   	=	1
+.CfgMem  RampDn   	=	1
+.CfgMem  PauseChg	=	1
+.CfgMem  RampVol	=	0
+.CfgMem  RampOnChg	=	1
+.CfgMem  RampWav   	=	0
+.Global $RAMP_RATE  	= 	204800
+.PCM16   RampDec   	=	"D:\Softwares\Aplus IC\aP23KW_Software\23KW-Software-V2.5\bin\wav\ramp\dec_table48K20.wav"
+.PCM16   RampInc   	=	"D:\Softwares\Aplus IC\aP23KW_Software\23KW-Software-V2.5\bin\wav\ramp\inc_table48K20.wav"
+.CfgMem  HwRamCfg   	=	0
+.CfgMem  LedOnRamp	=	1
+;===============================================================================
+.CfgMem  Cfg1Time	=	1
+.CfgMem  LvdMode	=	0
+.CfgMem  LvrSet		=	0
+.CfgMem  LvdEn 		=	0
+.CfgMem  BgrSet		=	1
+.CfgMem  V2iSet		=	1
+.CfgMem  DacSet		=	1
+;===============================================================================
+.CfgMem  BusyLvl 	=	3
+.CfgMem  OutPos	 	=	3
+.CfgMem  out1typ	=	3
+.CfgMem  out2typ	=	3
+.CfgMem  out3typ	=	3
+.CfgMem  UsrSel	 	=	13
+.CfgMem  Out1Sel 	=	1
+.CfgMem  Out2Sel 	=	7
+.CfgMem  Out3Sel	=	5
+.CfgMem  SecNum	 	=	200
+.CfgMem  dac2vob1	=	1
+;===============================================================================
+; VOICE LIST 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+; [FORMAT]		[SYMBOL]		[FILE] 
+; Codec: ADPCM / PCM8 / ULAW / PCM16 / SILENCE 
+ .Define         	FS          	= 16 
+ .Silence        	Empty       	= FS*10 
+ .PCM8			VoicePTR0	="D:\Softwares\Aplus IC\aP23KW_Software\23KW-Software-V2.5\bin\wav\ramp\mute_1_8bit.wav" 
+;-------------------------------------------------------------------------------
+ .ADPCM                  VoicePTR1               ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\1.wav"	;sample rate: (16000)
+ .ADPCM                  VoicePTR2               ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\10.wav"	;sample rate: (16000)
+ .ADPCM                  VoicePTR3               ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\100.wav"	;sample rate: (16000)
+ .ADPCM                  VoicePTR4               ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\11.wav"	;sample rate: (16000)
+ .ADPCM                  VoicePTR5               ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\12.wav"	;sample rate: (16000)
+ .ADPCM                  VoicePTR6               ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\13.wav"	;sample rate: (16000)
+ .ADPCM                  VoicePTR7               ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\14.wav"	;sample rate: (16000)
+ .ADPCM                  VoicePTR8               ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\15.wav"	;sample rate: (16000)
+ .ADPCM                  VoicePTR9               ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\16.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR10              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\17.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR11              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\18.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR12              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\19.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR13              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\2.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR14              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\20.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR15              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\200.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR16              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\3.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR17              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\30.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR18              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\4.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR19              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\40.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR20              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\5.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR21              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\50.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR22              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\6.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR23              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\60.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR24              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\7.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR25              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\70.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR26              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\8.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR27              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\80.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR28              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\9.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR29              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\90.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR30              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\all readings within a limits no worry.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR31              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\AM.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR32              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\and.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR33              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\hours.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR34              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\insert strip gluecose.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR35              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\Miniuts.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR36              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\plase remove your finger.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR37              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\please contact dr.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR38              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\Please put your finger only.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR39              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\Please put your index finger.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR40              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\please remove and put again.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR41              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\PM.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR42              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\seconds.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR43              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\stay stable while.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR44              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\submitted succesfully.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR45              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\time for after launch checkup.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR46              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\time for mornig checkup call.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR47              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\time for night chekup.wav"	;sample rate: (12000)
+ .ADPCM                 VoicePTR48              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\time for the launch.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR49              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\beats per minute.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR50              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\degree celsius.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR51              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\fahrenheit.wav"	;sample rate: (16000)
+ .ADPCM                 VoicePTR52              ="C:\Users\HR INDUSTRY\Documents\Audio Files\eadited\percent.wav"	;sample rate: (16000)
+;===============================================================================
+ .Silence        	SWEnd1		= 1 
+ .Silence        	SWEnd2		= 1 
+;===============================================================================
+.Section[   1]          $Edge    = "Yes"
+.Section[   1]          $Hold    = "No" 
+.Section[   1]         $ReTrg    = "No" 
+.Section[   1]        $StopEn    = "No" 
+.Section[   1]        $Groups    = VoicePTR1                    (16000)          :1
+.Section[   1]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[   2]          $Edge    = "Yes"
+.Section[   2]          $Hold    = "No" 
+.Section[   2]         $ReTrg    = "No" 
+.Section[   2]        $StopEn    = "No" 
+.Section[   2]        $Groups    = VoicePTR13                    (16000)          :1
+.Section[   2]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[   3]          $Edge    = "Yes"
+.Section[   3]          $Hold    = "No" 
+.Section[   3]         $ReTrg    = "No" 
+.Section[   3]        $StopEn    = "No" 
+.Section[   3]        $Groups    = VoicePTR16                    (16000)          :1
+.Section[   3]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[   4]          $Edge    = "Yes"
+.Section[   4]          $Hold    = "No" 
+.Section[   4]         $ReTrg    = "No" 
+.Section[   4]        $StopEn    = "No" 
+.Section[   4]        $Groups    = VoicePTR18                    (16000)          :1
+.Section[   4]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[   5]          $Edge    = "Yes"
+.Section[   5]          $Hold    = "No" 
+.Section[   5]         $ReTrg    = "No" 
+.Section[   5]        $StopEn    = "No" 
+.Section[   5]        $Groups    = VoicePTR20                    (16000)          :1
+.Section[   5]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[   6]          $Edge    = "Yes"
+.Section[   6]          $Hold    = "No" 
+.Section[   6]         $ReTrg    = "No" 
+.Section[   6]        $StopEn    = "No" 
+.Section[   6]        $Groups    = VoicePTR22                    (16000)          :1
+.Section[   6]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[   7]          $Edge    = "Yes"
+.Section[   7]          $Hold    = "No" 
+.Section[   7]         $ReTrg    = "No" 
+.Section[   7]        $StopEn    = "No" 
+.Section[   7]        $Groups    = VoicePTR24                    (16000)          :1
+.Section[   7]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[   8]          $Edge    = "Yes"
+.Section[   8]          $Hold    = "No" 
+.Section[   8]         $ReTrg    = "No" 
+.Section[   8]        $StopEn    = "No" 
+.Section[   8]        $Groups    = VoicePTR26                    (16000)          :1
+.Section[   8]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[   9]          $Edge    = "Yes"
+.Section[   9]          $Hold    = "No" 
+.Section[   9]         $ReTrg    = "No" 
+.Section[   9]        $StopEn    = "No" 
+.Section[   9]        $Groups    = VoicePTR28                    (16000)          :1
+.Section[   9]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  10]          $Edge    = "Yes"
+.Section[  10]          $Hold    = "No" 
+.Section[  10]         $ReTrg    = "No" 
+.Section[  10]        $StopEn    = "No" 
+.Section[  10]        $Groups    = VoicePTR2                   (16000)          :1
+.Section[  10]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  11]          $Edge    = "Yes"
+.Section[  11]          $Hold    = "No" 
+.Section[  11]         $ReTrg    = "No" 
+.Section[  11]        $StopEn    = "No" 
+.Section[  11]        $Groups    = VoicePTR4                   (16000)          :1
+.Section[  11]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  12]          $Edge    = "Yes"
+.Section[  12]          $Hold    = "No" 
+.Section[  12]         $ReTrg    = "No" 
+.Section[  12]        $StopEn    = "No" 
+.Section[  12]        $Groups    = VoicePTR5                   (16000)          :1
+.Section[  12]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  13]          $Edge    = "Yes"
+.Section[  13]          $Hold    = "No" 
+.Section[  13]         $ReTrg    = "No" 
+.Section[  13]        $StopEn    = "No" 
+.Section[  13]        $Groups    = VoicePTR6                   (16000)          :1
+.Section[  13]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  14]          $Edge    = "Yes"
+.Section[  14]          $Hold    = "No" 
+.Section[  14]         $ReTrg    = "No" 
+.Section[  14]        $StopEn    = "No" 
+.Section[  14]        $Groups    = VoicePTR7                   (16000)          :1
+.Section[  14]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  15]          $Edge    = "Yes"
+.Section[  15]          $Hold    = "No" 
+.Section[  15]         $ReTrg    = "No" 
+.Section[  15]        $StopEn    = "No" 
+.Section[  15]        $Groups    = VoicePTR8                   (16000)          :1
+.Section[  15]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  16]          $Edge    = "Yes"
+.Section[  16]          $Hold    = "No" 
+.Section[  16]         $ReTrg    = "No" 
+.Section[  16]        $StopEn    = "No" 
+.Section[  16]        $Groups    = VoicePTR9                   (16000)          :1
+.Section[  16]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  17]          $Edge    = "Yes"
+.Section[  17]          $Hold    = "No" 
+.Section[  17]         $ReTrg    = "No" 
+.Section[  17]        $StopEn    = "No" 
+.Section[  17]        $Groups    = VoicePTR10                   (16000)          :1
+.Section[  17]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  18]          $Edge    = "Yes"
+.Section[  18]          $Hold    = "No" 
+.Section[  18]         $ReTrg    = "No" 
+.Section[  18]        $StopEn    = "No" 
+.Section[  18]        $Groups    = VoicePTR11                   (16000)          :1
+.Section[  18]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  19]          $Edge    = "Yes"
+.Section[  19]          $Hold    = "No" 
+.Section[  19]         $ReTrg    = "No" 
+.Section[  19]        $StopEn    = "No" 
+.Section[  19]        $Groups    = VoicePTR12                   (16000)          :1
+.Section[  19]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  20]          $Edge    = "Yes"
+.Section[  20]          $Hold    = "No" 
+.Section[  20]         $ReTrg    = "No" 
+.Section[  20]        $StopEn    = "No" 
+.Section[  20]        $Groups    = VoicePTR14                   (16000)          :1
+.Section[  20]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  21]          $Edge    = "Yes"
+.Section[  21]          $Hold    = "No" 
+.Section[  21]         $ReTrg    = "Yes"
+.Section[  21]        $StopEn    = "Yes"
+.Section[  21]        $Groups    = VoicePTR46(16000)          :1
+.Section[  21]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  22]          $Edge    = "Yes"
+.Section[  22]          $Hold    = "No" 
+.Section[  22]         $ReTrg    = "No" 
+.Section[  22]        $StopEn    = "No" 
+.Section[  22]        $Groups    = VoicePTR48  (16000)          :1
+.Section[  22]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  23]          $Edge    = "Yes"
+.Section[  23]          $Hold    = "No" 
+.Section[  23]         $ReTrg    = "No" 
+.Section[  23]        $StopEn    = "No" 
+.Section[  23]        $Groups    = VoicePTR45(16000)          :1
+.Section[  23]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  24]          $Edge    = "Yes"
+.Section[  24]          $Hold    = "No" 
+.Section[  24]         $ReTrg    = "No" 
+.Section[  24]        $StopEn    = "No" 
+.Section[  24]        $Groups    = VoicePTR47(12000)          :1
+.Section[  24]        $Groups    = SWEnd2                   (25601)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  25]          $Edge    = "Yes"
+.Section[  25]          $Hold    = "No" 
+.Section[  25]         $ReTrg    = "No" 
+.Section[  25]        $StopEn    = "No" 
+.Section[  25]        $Groups    = VoicePTR33                (16000)          :1
+.Section[  25]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  26]          $Edge    = "Yes"
+.Section[  26]          $Hold    = "No" 
+.Section[  26]         $ReTrg    = "No" 
+.Section[  26]        $StopEn    = "No" 
+.Section[  26]        $Groups    = VoicePTR35              (16000)          :1
+.Section[  26]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  27]          $Edge    = "Yes"
+.Section[  27]          $Hold    = "No" 
+.Section[  27]         $ReTrg    = "No" 
+.Section[  27]        $StopEn    = "No" 
+.Section[  27]        $Groups    = VoicePTR42              (16000)          :1
+.Section[  27]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  28]          $Edge    = "Yes"
+.Section[  28]          $Hold    = "No" 
+.Section[  28]         $ReTrg    = "No" 
+.Section[  28]        $StopEn    = "No" 
+.Section[  28]        $Groups    = VoicePTR31                   (16000)          :1
+.Section[  28]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  29]          $Edge    = "Yes"
+.Section[  29]          $Hold    = "No" 
+.Section[  29]         $ReTrg    = "No" 
+.Section[  29]        $StopEn    = "No" 
+.Section[  29]        $Groups    = VoicePTR41                   (16000)          :1
+.Section[  29]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  30]          $Edge    = "Yes"
+.Section[  30]          $Hold    = "No" 
+.Section[  30]         $ReTrg    = "No" 
+.Section[  30]        $StopEn    = "No" 
+.Section[  30]        $Groups    = VoicePTR17                   (16000)          :1
+.Section[  30]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  31]          $Edge    = "Yes"
+.Section[  31]          $Hold    = "No" 
+.Section[  31]         $ReTrg    = "No" 
+.Section[  31]        $StopEn    = "No" 
+.Section[  31]        $Groups    = VoicePTR32                  (16000)          :1
+.Section[  31]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  32]          $Edge    = "Yes"
+.Section[  32]          $Hold    = "No" 
+.Section[  32]         $ReTrg    = "No" 
+.Section[  32]        $StopEn    = "No" 
+.Section[  32]        $Groups    = VoicePTR39(16000)          :1
+.Section[  32]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  33]          $Edge    = "Yes"
+.Section[  33]          $Hold    = "No" 
+.Section[  33]         $ReTrg    = "No" 
+.Section[  33]        $StopEn    = "No" 
+.Section[  33]        $Groups    = VoicePTR38(16000)          :1
+.Section[  33]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  34]          $Edge    = "Yes"
+.Section[  34]          $Hold    = "No" 
+.Section[  34]         $ReTrg    = "No" 
+.Section[  34]        $StopEn    = "No" 
+.Section[  34]        $Groups    = VoicePTR40(16000)          :1
+.Section[  34]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  35]          $Edge    = "Yes"
+.Section[  35]          $Hold    = "No" 
+.Section[  35]         $ReTrg    = "No" 
+.Section[  35]        $StopEn    = "No" 
+.Section[  35]        $Groups    = VoicePTR36(16000)          :1
+.Section[  35]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  36]          $Edge    = "Yes"
+.Section[  36]          $Hold    = "No" 
+.Section[  36]         $ReTrg    = "No" 
+.Section[  36]        $StopEn    = "No" 
+.Section[  36]        $Groups    = VoicePTR43    (16000)          :1
+.Section[  36]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  37]          $Edge    = "Yes"
+.Section[  37]          $Hold    = "No" 
+.Section[  37]         $ReTrg    = "No" 
+.Section[  37]        $StopEn    = "No" 
+.Section[  37]        $Groups    = VoicePTR37    (16000)          :1
+.Section[  37]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  38]          $Edge    = "Yes"
+.Section[  38]          $Hold    = "No" 
+.Section[  38]         $ReTrg    = "No" 
+.Section[  38]        $StopEn    = "No" 
+.Section[  38]        $Groups    = VoicePTR44(16000)          :1
+.Section[  38]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  39]          $Edge    = "Yes"
+.Section[  39]          $Hold    = "No" 
+.Section[  39]         $ReTrg    = "No" 
+.Section[  39]        $StopEn    = "No" 
+.Section[  39]        $Groups    = VoicePTR34(16000)          :1
+.Section[  39]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  40]          $Edge    = "Yes"
+.Section[  40]          $Hold    = "No" 
+.Section[  40]         $ReTrg    = "No" 
+.Section[  40]        $StopEn    = "No" 
+.Section[  40]        $Groups    = VoicePTR19                   (16000)          :1
+.Section[  40]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  41]          $Edge    = "Yes"
+.Section[  41]          $Hold    = "No" 
+.Section[  41]         $ReTrg    = "No" 
+.Section[  41]        $StopEn    = "No" 
+.Section[  41]        $Groups    = VoicePTR30(16000)          :1
+.Section[  41]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  42]          $Edge    = "Yes"
+.Section[  42]          $Hold    = "No" 
+.Section[  42]         $ReTrg    = "No" 
+.Section[  42]        $StopEn    = "No" 
+.Section[  42]        $Groups    = VoicePTR49     (16000)          :1
+.Section[  42]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  43]          $Edge    = "Yes"
+.Section[  43]          $Hold    = "No" 
+.Section[  43]         $ReTrg    = "No" 
+.Section[  43]        $StopEn    = "No" 
+.Section[  43]        $Groups    = VoicePTR50       (16000)          :1
+.Section[  43]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  44]          $Edge    = "Yes"
+.Section[  44]          $Hold    = "No" 
+.Section[  44]         $ReTrg    = "No" 
+.Section[  44]        $StopEn    = "No" 
+.Section[  44]        $Groups    = VoicePTR51           (16000)          :1
+.Section[  44]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  45]          $Edge    = "Yes"
+.Section[  45]          $Hold    = "No" 
+.Section[  45]         $ReTrg    = "No" 
+.Section[  45]        $StopEn    = "No" 
+.Section[  45]        $Groups    = VoicePTR52              (16000)          :1
+.Section[  45]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  46]          $Edge    = "No"
+.Section[  46]          $Hold    = "No"
+.Section[  46]         $ReTrg    = "Yes"
+.Section[  46]        $StopEn    = "Yes"
+.Section[  46]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  47]          $Edge    = "No"
+.Section[  47]          $Hold    = "No"
+.Section[  47]         $ReTrg    = "Yes"
+.Section[  47]        $StopEn    = "Yes"
+.Section[  47]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  48]          $Edge    = "No"
+.Section[  48]          $Hold    = "No"
+.Section[  48]         $ReTrg    = "Yes"
+.Section[  48]        $StopEn    = "Yes"
+.Section[  48]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  49]          $Edge    = "No"
+.Section[  49]          $Hold    = "No"
+.Section[  49]         $ReTrg    = "Yes"
+.Section[  49]        $StopEn    = "Yes"
+.Section[  49]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  50]          $Edge    = "Yes"
+.Section[  50]          $Hold    = "No" 
+.Section[  50]         $ReTrg    = "No" 
+.Section[  50]        $StopEn    = "No" 
+.Section[  50]        $Groups    = VoicePTR21                   (16000)          :1
+.Section[  50]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  51]          $Edge    = "No"
+.Section[  51]          $Hold    = "No"
+.Section[  51]         $ReTrg    = "Yes"
+.Section[  51]        $StopEn    = "Yes"
+.Section[  51]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  52]          $Edge    = "No"
+.Section[  52]          $Hold    = "No"
+.Section[  52]         $ReTrg    = "Yes"
+.Section[  52]        $StopEn    = "Yes"
+.Section[  52]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  53]          $Edge    = "No"
+.Section[  53]          $Hold    = "No"
+.Section[  53]         $ReTrg    = "Yes"
+.Section[  53]        $StopEn    = "Yes"
+.Section[  53]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  54]          $Edge    = "No"
+.Section[  54]          $Hold    = "No"
+.Section[  54]         $ReTrg    = "Yes"
+.Section[  54]        $StopEn    = "Yes"
+.Section[  54]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  55]          $Edge    = "No"
+.Section[  55]          $Hold    = "No"
+.Section[  55]         $ReTrg    = "Yes"
+.Section[  55]        $StopEn    = "Yes"
+.Section[  55]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  56]          $Edge    = "No"
+.Section[  56]          $Hold    = "No"
+.Section[  56]         $ReTrg    = "Yes"
+.Section[  56]        $StopEn    = "Yes"
+.Section[  56]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  57]          $Edge    = "No"
+.Section[  57]          $Hold    = "No"
+.Section[  57]         $ReTrg    = "Yes"
+.Section[  57]        $StopEn    = "Yes"
+.Section[  57]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  58]          $Edge    = "No"
+.Section[  58]          $Hold    = "No"
+.Section[  58]         $ReTrg    = "Yes"
+.Section[  58]        $StopEn    = "Yes"
+.Section[  58]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  59]          $Edge    = "No"
+.Section[  59]          $Hold    = "No"
+.Section[  59]         $ReTrg    = "Yes"
+.Section[  59]        $StopEn    = "Yes"
+.Section[  59]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  60]          $Edge    = "Yes"
+.Section[  60]          $Hold    = "No" 
+.Section[  60]         $ReTrg    = "No" 
+.Section[  60]        $StopEn    = "No" 
+.Section[  60]        $Groups    = VoicePTR23                   (16000)          :1
+.Section[  60]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  61]          $Edge    = "No"
+.Section[  61]          $Hold    = "No"
+.Section[  61]         $ReTrg    = "Yes"
+.Section[  61]        $StopEn    = "Yes"
+.Section[  61]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  62]          $Edge    = "No"
+.Section[  62]          $Hold    = "No"
+.Section[  62]         $ReTrg    = "Yes"
+.Section[  62]        $StopEn    = "Yes"
+.Section[  62]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  63]          $Edge    = "No"
+.Section[  63]          $Hold    = "No"
+.Section[  63]         $ReTrg    = "Yes"
+.Section[  63]        $StopEn    = "Yes"
+.Section[  63]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  64]          $Edge    = "No"
+.Section[  64]          $Hold    = "No"
+.Section[  64]         $ReTrg    = "Yes"
+.Section[  64]        $StopEn    = "Yes"
+.Section[  64]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  65]          $Edge    = "No"
+.Section[  65]          $Hold    = "No"
+.Section[  65]         $ReTrg    = "Yes"
+.Section[  65]        $StopEn    = "Yes"
+.Section[  65]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  66]          $Edge    = "No"
+.Section[  66]          $Hold    = "No"
+.Section[  66]         $ReTrg    = "Yes"
+.Section[  66]        $StopEn    = "Yes"
+.Section[  66]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  67]          $Edge    = "No"
+.Section[  67]          $Hold    = "No"
+.Section[  67]         $ReTrg    = "Yes"
+.Section[  67]        $StopEn    = "Yes"
+.Section[  67]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  68]          $Edge    = "No"
+.Section[  68]          $Hold    = "No"
+.Section[  68]         $ReTrg    = "Yes"
+.Section[  68]        $StopEn    = "Yes"
+.Section[  68]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  69]          $Edge    = "No"
+.Section[  69]          $Hold    = "No"
+.Section[  69]         $ReTrg    = "Yes"
+.Section[  69]        $StopEn    = "Yes"
+.Section[  69]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  70]          $Edge    = "Yes"
+.Section[  70]          $Hold    = "No" 
+.Section[  70]         $ReTrg    = "No" 
+.Section[  70]        $StopEn    = "No" 
+.Section[  70]        $Groups    = VoicePTR25                   (16000)          :1
+.Section[  70]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  71]          $Edge    = "No"
+.Section[  71]          $Hold    = "No"
+.Section[  71]         $ReTrg    = "Yes"
+.Section[  71]        $StopEn    = "Yes"
+.Section[  71]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  72]          $Edge    = "No"
+.Section[  72]          $Hold    = "No"
+.Section[  72]         $ReTrg    = "Yes"
+.Section[  72]        $StopEn    = "Yes"
+.Section[  72]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  73]          $Edge    = "No"
+.Section[  73]          $Hold    = "No"
+.Section[  73]         $ReTrg    = "Yes"
+.Section[  73]        $StopEn    = "Yes"
+.Section[  73]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  74]          $Edge    = "No"
+.Section[  74]          $Hold    = "No"
+.Section[  74]         $ReTrg    = "Yes"
+.Section[  74]        $StopEn    = "Yes"
+.Section[  74]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  75]          $Edge    = "No"
+.Section[  75]          $Hold    = "No"
+.Section[  75]         $ReTrg    = "Yes"
+.Section[  75]        $StopEn    = "Yes"
+.Section[  75]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  76]          $Edge    = "No"
+.Section[  76]          $Hold    = "No"
+.Section[  76]         $ReTrg    = "Yes"
+.Section[  76]        $StopEn    = "Yes"
+.Section[  76]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  77]          $Edge    = "No"
+.Section[  77]          $Hold    = "No"
+.Section[  77]         $ReTrg    = "Yes"
+.Section[  77]        $StopEn    = "Yes"
+.Section[  77]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  78]          $Edge    = "No"
+.Section[  78]          $Hold    = "No"
+.Section[  78]         $ReTrg    = "Yes"
+.Section[  78]        $StopEn    = "Yes"
+.Section[  78]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  79]          $Edge    = "No"
+.Section[  79]          $Hold    = "No"
+.Section[  79]         $ReTrg    = "Yes"
+.Section[  79]        $StopEn    = "Yes"
+.Section[  79]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  80]          $Edge    = "Yes"
+.Section[  80]          $Hold    = "No" 
+.Section[  80]         $ReTrg    = "No" 
+.Section[  80]        $StopEn    = "No" 
+.Section[  80]        $Groups    = VoicePTR27                   (16000)          :1
+.Section[  80]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  81]          $Edge    = "No"
+.Section[  81]          $Hold    = "No"
+.Section[  81]         $ReTrg    = "Yes"
+.Section[  81]        $StopEn    = "Yes"
+.Section[  81]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  82]          $Edge    = "No"
+.Section[  82]          $Hold    = "No"
+.Section[  82]         $ReTrg    = "Yes"
+.Section[  82]        $StopEn    = "Yes"
+.Section[  82]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  83]          $Edge    = "No"
+.Section[  83]          $Hold    = "No"
+.Section[  83]         $ReTrg    = "Yes"
+.Section[  83]        $StopEn    = "Yes"
+.Section[  83]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  84]          $Edge    = "No"
+.Section[  84]          $Hold    = "No"
+.Section[  84]         $ReTrg    = "Yes"
+.Section[  84]        $StopEn    = "Yes"
+.Section[  84]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  85]          $Edge    = "No"
+.Section[  85]          $Hold    = "No"
+.Section[  85]         $ReTrg    = "Yes"
+.Section[  85]        $StopEn    = "Yes"
+.Section[  85]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  86]          $Edge    = "No"
+.Section[  86]          $Hold    = "No"
+.Section[  86]         $ReTrg    = "Yes"
+.Section[  86]        $StopEn    = "Yes"
+.Section[  86]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  87]          $Edge    = "No"
+.Section[  87]          $Hold    = "No"
+.Section[  87]         $ReTrg    = "Yes"
+.Section[  87]        $StopEn    = "Yes"
+.Section[  87]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  88]          $Edge    = "No"
+.Section[  88]          $Hold    = "No"
+.Section[  88]         $ReTrg    = "Yes"
+.Section[  88]        $StopEn    = "Yes"
+.Section[  88]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  89]          $Edge    = "No"
+.Section[  89]          $Hold    = "No"
+.Section[  89]         $ReTrg    = "Yes"
+.Section[  89]        $StopEn    = "Yes"
+.Section[  89]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  90]          $Edge    = "Yes"
+.Section[  90]          $Hold    = "No" 
+.Section[  90]         $ReTrg    = "No" 
+.Section[  90]        $StopEn    = "No" 
+.Section[  90]        $Groups    = VoicePTR29                   (16000)          :1
+.Section[  90]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  91]          $Edge    = "No"
+.Section[  91]          $Hold    = "No"
+.Section[  91]         $ReTrg    = "Yes"
+.Section[  91]        $StopEn    = "Yes"
+.Section[  91]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  92]          $Edge    = "No"
+.Section[  92]          $Hold    = "No"
+.Section[  92]         $ReTrg    = "Yes"
+.Section[  92]        $StopEn    = "Yes"
+.Section[  92]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  93]          $Edge    = "No"
+.Section[  93]          $Hold    = "No"
+.Section[  93]         $ReTrg    = "Yes"
+.Section[  93]        $StopEn    = "Yes"
+.Section[  93]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  94]          $Edge    = "No"
+.Section[  94]          $Hold    = "No"
+.Section[  94]         $ReTrg    = "Yes"
+.Section[  94]        $StopEn    = "Yes"
+.Section[  94]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  95]          $Edge    = "No"
+.Section[  95]          $Hold    = "No"
+.Section[  95]         $ReTrg    = "Yes"
+.Section[  95]        $StopEn    = "Yes"
+.Section[  95]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  96]          $Edge    = "No"
+.Section[  96]          $Hold    = "No"
+.Section[  96]         $ReTrg    = "Yes"
+.Section[  96]        $StopEn    = "Yes"
+.Section[  96]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  97]          $Edge    = "No"
+.Section[  97]          $Hold    = "No"
+.Section[  97]         $ReTrg    = "Yes"
+.Section[  97]        $StopEn    = "Yes"
+.Section[  97]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  98]          $Edge    = "No"
+.Section[  98]          $Hold    = "No"
+.Section[  98]         $ReTrg    = "Yes"
+.Section[  98]        $StopEn    = "Yes"
+.Section[  98]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[  99]          $Edge    = "No"
+.Section[  99]          $Hold    = "No"
+.Section[  99]         $ReTrg    = "Yes"
+.Section[  99]        $StopEn    = "Yes"
+.Section[  99]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 100]          $Edge    = "Yes"
+.Section[ 100]          $Hold    = "No" 
+.Section[ 100]         $ReTrg    = "No" 
+.Section[ 100]        $StopEn    = "No" 
+.Section[ 100]        $Groups    = VoicePTR3                  (16000)          :1
+.Section[ 100]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 101]          $Edge    = "No"
+.Section[ 101]          $Hold    = "No"
+.Section[ 101]         $ReTrg    = "Yes"
+.Section[ 101]        $StopEn    = "Yes"
+.Section[ 101]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 102]          $Edge    = "No"
+.Section[ 102]          $Hold    = "No"
+.Section[ 102]         $ReTrg    = "Yes"
+.Section[ 102]        $StopEn    = "Yes"
+.Section[ 102]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 103]          $Edge    = "No"
+.Section[ 103]          $Hold    = "No"
+.Section[ 103]         $ReTrg    = "Yes"
+.Section[ 103]        $StopEn    = "Yes"
+.Section[ 103]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 104]          $Edge    = "No"
+.Section[ 104]          $Hold    = "No"
+.Section[ 104]         $ReTrg    = "Yes"
+.Section[ 104]        $StopEn    = "Yes"
+.Section[ 104]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 105]          $Edge    = "No"
+.Section[ 105]          $Hold    = "No"
+.Section[ 105]         $ReTrg    = "Yes"
+.Section[ 105]        $StopEn    = "Yes"
+.Section[ 105]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 106]          $Edge    = "No"
+.Section[ 106]          $Hold    = "No"
+.Section[ 106]         $ReTrg    = "Yes"
+.Section[ 106]        $StopEn    = "Yes"
+.Section[ 106]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 107]          $Edge    = "No"
+.Section[ 107]          $Hold    = "No"
+.Section[ 107]         $ReTrg    = "Yes"
+.Section[ 107]        $StopEn    = "Yes"
+.Section[ 107]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 108]          $Edge    = "No"
+.Section[ 108]          $Hold    = "No"
+.Section[ 108]         $ReTrg    = "Yes"
+.Section[ 108]        $StopEn    = "Yes"
+.Section[ 108]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 109]          $Edge    = "No"
+.Section[ 109]          $Hold    = "No"
+.Section[ 109]         $ReTrg    = "Yes"
+.Section[ 109]        $StopEn    = "Yes"
+.Section[ 109]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 110]          $Edge    = "No"
+.Section[ 110]          $Hold    = "No"
+.Section[ 110]         $ReTrg    = "Yes"
+.Section[ 110]        $StopEn    = "Yes"
+.Section[ 110]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 111]          $Edge    = "No"
+.Section[ 111]          $Hold    = "No"
+.Section[ 111]         $ReTrg    = "Yes"
+.Section[ 111]        $StopEn    = "Yes"
+.Section[ 111]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 112]          $Edge    = "No"
+.Section[ 112]          $Hold    = "No"
+.Section[ 112]         $ReTrg    = "Yes"
+.Section[ 112]        $StopEn    = "Yes"
+.Section[ 112]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 113]          $Edge    = "No"
+.Section[ 113]          $Hold    = "No"
+.Section[ 113]         $ReTrg    = "Yes"
+.Section[ 113]        $StopEn    = "Yes"
+.Section[ 113]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 114]          $Edge    = "No"
+.Section[ 114]          $Hold    = "No"
+.Section[ 114]         $ReTrg    = "Yes"
+.Section[ 114]        $StopEn    = "Yes"
+.Section[ 114]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 115]          $Edge    = "No"
+.Section[ 115]          $Hold    = "No"
+.Section[ 115]         $ReTrg    = "Yes"
+.Section[ 115]        $StopEn    = "Yes"
+.Section[ 115]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 116]          $Edge    = "No"
+.Section[ 116]          $Hold    = "No"
+.Section[ 116]         $ReTrg    = "Yes"
+.Section[ 116]        $StopEn    = "Yes"
+.Section[ 116]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 117]          $Edge    = "No"
+.Section[ 117]          $Hold    = "No"
+.Section[ 117]         $ReTrg    = "Yes"
+.Section[ 117]        $StopEn    = "Yes"
+.Section[ 117]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 118]          $Edge    = "No"
+.Section[ 118]          $Hold    = "No"
+.Section[ 118]         $ReTrg    = "Yes"
+.Section[ 118]        $StopEn    = "Yes"
+.Section[ 118]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 119]          $Edge    = "No"
+.Section[ 119]          $Hold    = "No"
+.Section[ 119]         $ReTrg    = "Yes"
+.Section[ 119]        $StopEn    = "Yes"
+.Section[ 119]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 120]          $Edge    = "No"
+.Section[ 120]          $Hold    = "No"
+.Section[ 120]         $ReTrg    = "Yes"
+.Section[ 120]        $StopEn    = "Yes"
+.Section[ 120]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 121]          $Edge    = "No"
+.Section[ 121]          $Hold    = "No"
+.Section[ 121]         $ReTrg    = "Yes"
+.Section[ 121]        $StopEn    = "Yes"
+.Section[ 121]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 122]          $Edge    = "No"
+.Section[ 122]          $Hold    = "No"
+.Section[ 122]         $ReTrg    = "Yes"
+.Section[ 122]        $StopEn    = "Yes"
+.Section[ 122]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 123]          $Edge    = "No"
+.Section[ 123]          $Hold    = "No"
+.Section[ 123]         $ReTrg    = "Yes"
+.Section[ 123]        $StopEn    = "Yes"
+.Section[ 123]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 124]          $Edge    = "No"
+.Section[ 124]          $Hold    = "No"
+.Section[ 124]         $ReTrg    = "Yes"
+.Section[ 124]        $StopEn    = "Yes"
+.Section[ 124]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 125]          $Edge    = "No"
+.Section[ 125]          $Hold    = "No"
+.Section[ 125]         $ReTrg    = "Yes"
+.Section[ 125]        $StopEn    = "Yes"
+.Section[ 125]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 126]          $Edge    = "No"
+.Section[ 126]          $Hold    = "No"
+.Section[ 126]         $ReTrg    = "Yes"
+.Section[ 126]        $StopEn    = "Yes"
+.Section[ 126]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 127]          $Edge    = "No"
+.Section[ 127]          $Hold    = "No"
+.Section[ 127]         $ReTrg    = "Yes"
+.Section[ 127]        $StopEn    = "Yes"
+.Section[ 127]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 128]          $Edge    = "No"
+.Section[ 128]          $Hold    = "No"
+.Section[ 128]         $ReTrg    = "Yes"
+.Section[ 128]        $StopEn    = "Yes"
+.Section[ 128]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 129]          $Edge    = "No"
+.Section[ 129]          $Hold    = "No"
+.Section[ 129]         $ReTrg    = "Yes"
+.Section[ 129]        $StopEn    = "Yes"
+.Section[ 129]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 130]          $Edge    = "No"
+.Section[ 130]          $Hold    = "No"
+.Section[ 130]         $ReTrg    = "Yes"
+.Section[ 130]        $StopEn    = "Yes"
+.Section[ 130]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 131]          $Edge    = "No"
+.Section[ 131]          $Hold    = "No"
+.Section[ 131]         $ReTrg    = "Yes"
+.Section[ 131]        $StopEn    = "Yes"
+.Section[ 131]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 132]          $Edge    = "No"
+.Section[ 132]          $Hold    = "No"
+.Section[ 132]         $ReTrg    = "Yes"
+.Section[ 132]        $StopEn    = "Yes"
+.Section[ 132]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 133]          $Edge    = "No"
+.Section[ 133]          $Hold    = "No"
+.Section[ 133]         $ReTrg    = "Yes"
+.Section[ 133]        $StopEn    = "Yes"
+.Section[ 133]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 134]          $Edge    = "No"
+.Section[ 134]          $Hold    = "No"
+.Section[ 134]         $ReTrg    = "Yes"
+.Section[ 134]        $StopEn    = "Yes"
+.Section[ 134]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 135]          $Edge    = "No"
+.Section[ 135]          $Hold    = "No"
+.Section[ 135]         $ReTrg    = "Yes"
+.Section[ 135]        $StopEn    = "Yes"
+.Section[ 135]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 136]          $Edge    = "No"
+.Section[ 136]          $Hold    = "No"
+.Section[ 136]         $ReTrg    = "Yes"
+.Section[ 136]        $StopEn    = "Yes"
+.Section[ 136]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 137]          $Edge    = "No"
+.Section[ 137]          $Hold    = "No"
+.Section[ 137]         $ReTrg    = "Yes"
+.Section[ 137]        $StopEn    = "Yes"
+.Section[ 137]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 138]          $Edge    = "No"
+.Section[ 138]          $Hold    = "No"
+.Section[ 138]         $ReTrg    = "Yes"
+.Section[ 138]        $StopEn    = "Yes"
+.Section[ 138]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 139]          $Edge    = "No"
+.Section[ 139]          $Hold    = "No"
+.Section[ 139]         $ReTrg    = "Yes"
+.Section[ 139]        $StopEn    = "Yes"
+.Section[ 139]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 140]          $Edge    = "No"
+.Section[ 140]          $Hold    = "No"
+.Section[ 140]         $ReTrg    = "Yes"
+.Section[ 140]        $StopEn    = "Yes"
+.Section[ 140]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 141]          $Edge    = "No"
+.Section[ 141]          $Hold    = "No"
+.Section[ 141]         $ReTrg    = "Yes"
+.Section[ 141]        $StopEn    = "Yes"
+.Section[ 141]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 142]          $Edge    = "No"
+.Section[ 142]          $Hold    = "No"
+.Section[ 142]         $ReTrg    = "Yes"
+.Section[ 142]        $StopEn    = "Yes"
+.Section[ 142]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 143]          $Edge    = "No"
+.Section[ 143]          $Hold    = "No"
+.Section[ 143]         $ReTrg    = "Yes"
+.Section[ 143]        $StopEn    = "Yes"
+.Section[ 143]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 144]          $Edge    = "No"
+.Section[ 144]          $Hold    = "No"
+.Section[ 144]         $ReTrg    = "Yes"
+.Section[ 144]        $StopEn    = "Yes"
+.Section[ 144]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 145]          $Edge    = "No"
+.Section[ 145]          $Hold    = "No"
+.Section[ 145]         $ReTrg    = "Yes"
+.Section[ 145]        $StopEn    = "Yes"
+.Section[ 145]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 146]          $Edge    = "No"
+.Section[ 146]          $Hold    = "No"
+.Section[ 146]         $ReTrg    = "Yes"
+.Section[ 146]        $StopEn    = "Yes"
+.Section[ 146]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 147]          $Edge    = "No"
+.Section[ 147]          $Hold    = "No"
+.Section[ 147]         $ReTrg    = "Yes"
+.Section[ 147]        $StopEn    = "Yes"
+.Section[ 147]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 148]          $Edge    = "No"
+.Section[ 148]          $Hold    = "No"
+.Section[ 148]         $ReTrg    = "Yes"
+.Section[ 148]        $StopEn    = "Yes"
+.Section[ 148]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 149]          $Edge    = "No"
+.Section[ 149]          $Hold    = "No"
+.Section[ 149]         $ReTrg    = "Yes"
+.Section[ 149]        $StopEn    = "Yes"
+.Section[ 149]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 150]          $Edge    = "No"
+.Section[ 150]          $Hold    = "No"
+.Section[ 150]         $ReTrg    = "Yes"
+.Section[ 150]        $StopEn    = "Yes"
+.Section[ 150]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 151]          $Edge    = "No"
+.Section[ 151]          $Hold    = "No"
+.Section[ 151]         $ReTrg    = "Yes"
+.Section[ 151]        $StopEn    = "Yes"
+.Section[ 151]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 152]          $Edge    = "No"
+.Section[ 152]          $Hold    = "No"
+.Section[ 152]         $ReTrg    = "Yes"
+.Section[ 152]        $StopEn    = "Yes"
+.Section[ 152]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 153]          $Edge    = "No"
+.Section[ 153]          $Hold    = "No"
+.Section[ 153]         $ReTrg    = "Yes"
+.Section[ 153]        $StopEn    = "Yes"
+.Section[ 153]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 154]          $Edge    = "No"
+.Section[ 154]          $Hold    = "No"
+.Section[ 154]         $ReTrg    = "Yes"
+.Section[ 154]        $StopEn    = "Yes"
+.Section[ 154]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 155]          $Edge    = "No"
+.Section[ 155]          $Hold    = "No"
+.Section[ 155]         $ReTrg    = "Yes"
+.Section[ 155]        $StopEn    = "Yes"
+.Section[ 155]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 156]          $Edge    = "No"
+.Section[ 156]          $Hold    = "No"
+.Section[ 156]         $ReTrg    = "Yes"
+.Section[ 156]        $StopEn    = "Yes"
+.Section[ 156]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 157]          $Edge    = "No"
+.Section[ 157]          $Hold    = "No"
+.Section[ 157]         $ReTrg    = "Yes"
+.Section[ 157]        $StopEn    = "Yes"
+.Section[ 157]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 158]          $Edge    = "No"
+.Section[ 158]          $Hold    = "No"
+.Section[ 158]         $ReTrg    = "Yes"
+.Section[ 158]        $StopEn    = "Yes"
+.Section[ 158]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 159]          $Edge    = "No"
+.Section[ 159]          $Hold    = "No"
+.Section[ 159]         $ReTrg    = "Yes"
+.Section[ 159]        $StopEn    = "Yes"
+.Section[ 159]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 160]          $Edge    = "No"
+.Section[ 160]          $Hold    = "No"
+.Section[ 160]         $ReTrg    = "Yes"
+.Section[ 160]        $StopEn    = "Yes"
+.Section[ 160]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 161]          $Edge    = "No"
+.Section[ 161]          $Hold    = "No"
+.Section[ 161]         $ReTrg    = "Yes"
+.Section[ 161]        $StopEn    = "Yes"
+.Section[ 161]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 162]          $Edge    = "No"
+.Section[ 162]          $Hold    = "No"
+.Section[ 162]         $ReTrg    = "Yes"
+.Section[ 162]        $StopEn    = "Yes"
+.Section[ 162]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 163]          $Edge    = "No"
+.Section[ 163]          $Hold    = "No"
+.Section[ 163]         $ReTrg    = "Yes"
+.Section[ 163]        $StopEn    = "Yes"
+.Section[ 163]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 164]          $Edge    = "No"
+.Section[ 164]          $Hold    = "No"
+.Section[ 164]         $ReTrg    = "Yes"
+.Section[ 164]        $StopEn    = "Yes"
+.Section[ 164]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 165]          $Edge    = "No"
+.Section[ 165]          $Hold    = "No"
+.Section[ 165]         $ReTrg    = "Yes"
+.Section[ 165]        $StopEn    = "Yes"
+.Section[ 165]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 166]          $Edge    = "No"
+.Section[ 166]          $Hold    = "No"
+.Section[ 166]         $ReTrg    = "Yes"
+.Section[ 166]        $StopEn    = "Yes"
+.Section[ 166]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 167]          $Edge    = "No"
+.Section[ 167]          $Hold    = "No"
+.Section[ 167]         $ReTrg    = "Yes"
+.Section[ 167]        $StopEn    = "Yes"
+.Section[ 167]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 168]          $Edge    = "No"
+.Section[ 168]          $Hold    = "No"
+.Section[ 168]         $ReTrg    = "Yes"
+.Section[ 168]        $StopEn    = "Yes"
+.Section[ 168]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 169]          $Edge    = "No"
+.Section[ 169]          $Hold    = "No"
+.Section[ 169]         $ReTrg    = "Yes"
+.Section[ 169]        $StopEn    = "Yes"
+.Section[ 169]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 170]          $Edge    = "No"
+.Section[ 170]          $Hold    = "No"
+.Section[ 170]         $ReTrg    = "Yes"
+.Section[ 170]        $StopEn    = "Yes"
+.Section[ 170]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 171]          $Edge    = "No"
+.Section[ 171]          $Hold    = "No"
+.Section[ 171]         $ReTrg    = "Yes"
+.Section[ 171]        $StopEn    = "Yes"
+.Section[ 171]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 172]          $Edge    = "No"
+.Section[ 172]          $Hold    = "No"
+.Section[ 172]         $ReTrg    = "Yes"
+.Section[ 172]        $StopEn    = "Yes"
+.Section[ 172]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 173]          $Edge    = "No"
+.Section[ 173]          $Hold    = "No"
+.Section[ 173]         $ReTrg    = "Yes"
+.Section[ 173]        $StopEn    = "Yes"
+.Section[ 173]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 174]          $Edge    = "No"
+.Section[ 174]          $Hold    = "No"
+.Section[ 174]         $ReTrg    = "Yes"
+.Section[ 174]        $StopEn    = "Yes"
+.Section[ 174]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 175]          $Edge    = "No"
+.Section[ 175]          $Hold    = "No"
+.Section[ 175]         $ReTrg    = "Yes"
+.Section[ 175]        $StopEn    = "Yes"
+.Section[ 175]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 176]          $Edge    = "No"
+.Section[ 176]          $Hold    = "No"
+.Section[ 176]         $ReTrg    = "Yes"
+.Section[ 176]        $StopEn    = "Yes"
+.Section[ 176]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 177]          $Edge    = "No"
+.Section[ 177]          $Hold    = "No"
+.Section[ 177]         $ReTrg    = "Yes"
+.Section[ 177]        $StopEn    = "Yes"
+.Section[ 177]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 178]          $Edge    = "No"
+.Section[ 178]          $Hold    = "No"
+.Section[ 178]         $ReTrg    = "Yes"
+.Section[ 178]        $StopEn    = "Yes"
+.Section[ 178]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 179]          $Edge    = "No"
+.Section[ 179]          $Hold    = "No"
+.Section[ 179]         $ReTrg    = "Yes"
+.Section[ 179]        $StopEn    = "Yes"
+.Section[ 179]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 180]          $Edge    = "No"
+.Section[ 180]          $Hold    = "No"
+.Section[ 180]         $ReTrg    = "Yes"
+.Section[ 180]        $StopEn    = "Yes"
+.Section[ 180]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 181]          $Edge    = "No"
+.Section[ 181]          $Hold    = "No"
+.Section[ 181]         $ReTrg    = "Yes"
+.Section[ 181]        $StopEn    = "Yes"
+.Section[ 181]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 182]          $Edge    = "No"
+.Section[ 182]          $Hold    = "No"
+.Section[ 182]         $ReTrg    = "Yes"
+.Section[ 182]        $StopEn    = "Yes"
+.Section[ 182]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 183]          $Edge    = "No"
+.Section[ 183]          $Hold    = "No"
+.Section[ 183]         $ReTrg    = "Yes"
+.Section[ 183]        $StopEn    = "Yes"
+.Section[ 183]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 184]          $Edge    = "No"
+.Section[ 184]          $Hold    = "No"
+.Section[ 184]         $ReTrg    = "Yes"
+.Section[ 184]        $StopEn    = "Yes"
+.Section[ 184]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 185]          $Edge    = "No"
+.Section[ 185]          $Hold    = "No"
+.Section[ 185]         $ReTrg    = "Yes"
+.Section[ 185]        $StopEn    = "Yes"
+.Section[ 185]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 186]          $Edge    = "No"
+.Section[ 186]          $Hold    = "No"
+.Section[ 186]         $ReTrg    = "Yes"
+.Section[ 186]        $StopEn    = "Yes"
+.Section[ 186]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 187]          $Edge    = "No"
+.Section[ 187]          $Hold    = "No"
+.Section[ 187]         $ReTrg    = "Yes"
+.Section[ 187]        $StopEn    = "Yes"
+.Section[ 187]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 188]          $Edge    = "No"
+.Section[ 188]          $Hold    = "No"
+.Section[ 188]         $ReTrg    = "Yes"
+.Section[ 188]        $StopEn    = "Yes"
+.Section[ 188]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 189]          $Edge    = "No"
+.Section[ 189]          $Hold    = "No"
+.Section[ 189]         $ReTrg    = "Yes"
+.Section[ 189]        $StopEn    = "Yes"
+.Section[ 189]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 190]          $Edge    = "No"
+.Section[ 190]          $Hold    = "No"
+.Section[ 190]         $ReTrg    = "Yes"
+.Section[ 190]        $StopEn    = "Yes"
+.Section[ 190]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 191]          $Edge    = "No"
+.Section[ 191]          $Hold    = "No"
+.Section[ 191]         $ReTrg    = "Yes"
+.Section[ 191]        $StopEn    = "Yes"
+.Section[ 191]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 192]          $Edge    = "No"
+.Section[ 192]          $Hold    = "No"
+.Section[ 192]         $ReTrg    = "Yes"
+.Section[ 192]        $StopEn    = "Yes"
+.Section[ 192]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 193]          $Edge    = "No"
+.Section[ 193]          $Hold    = "No"
+.Section[ 193]         $ReTrg    = "Yes"
+.Section[ 193]        $StopEn    = "Yes"
+.Section[ 193]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 194]          $Edge    = "No"
+.Section[ 194]          $Hold    = "No"
+.Section[ 194]         $ReTrg    = "Yes"
+.Section[ 194]        $StopEn    = "Yes"
+.Section[ 194]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 195]          $Edge    = "No"
+.Section[ 195]          $Hold    = "No"
+.Section[ 195]         $ReTrg    = "Yes"
+.Section[ 195]        $StopEn    = "Yes"
+.Section[ 195]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 196]          $Edge    = "No"
+.Section[ 196]          $Hold    = "No"
+.Section[ 196]         $ReTrg    = "Yes"
+.Section[ 196]        $StopEn    = "Yes"
+.Section[ 196]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 197]          $Edge    = "No"
+.Section[ 197]          $Hold    = "No"
+.Section[ 197]         $ReTrg    = "Yes"
+.Section[ 197]        $StopEn    = "Yes"
+.Section[ 197]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 198]          $Edge    = "No"
+.Section[ 198]          $Hold    = "No"
+.Section[ 198]         $ReTrg    = "Yes"
+.Section[ 198]        $StopEn    = "Yes"
+.Section[ 198]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 199]          $Edge    = "No"
+.Section[ 199]          $Hold    = "No"
+.Section[ 199]         $ReTrg    = "Yes"
+.Section[ 199]        $StopEn    = "Yes"
+.Section[ 199]        $Groups    = Empty                        (16000)       :1 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+.Section[ 200]          $Edge    = "Yes"
+.Section[ 200]          $Hold    = "No" 
+.Section[ 200]         $ReTrg    = "No" 
+.Section[ 200]        $StopEn    = "No" 
+.Section[ 200]        $Groups    = VoicePTR15                  (16000)          :1
+.Section[ 200]        $Groups    = SWEnd1                   (34712)          :1
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
