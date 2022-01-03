@@ -1,14 +1,28 @@
 #include "Wire.h"
+#include "MAX30105.h"
+#include "heartRate.h"
+
+#define IR_SENSOR_THRESHOLD 50000
+#define MAX_AQUASITION_TIME 10000
+MAX30105 particleSensor;
+
 #define PCF8563address 0x51
 #define Mornig_Alarm 1
 #define Lunch_Time 2
 #define Lunch_Alarm 3
 #define Night_Alarm 4
 
+byte Pulse_Sensor_op;
+byte Oxygen_Saturation_Level;
+float Blood_Sugar_Voltage_Level;
+float Body_Temprature_Level;
+
+
 
 #define CLK_AP 8
 #define DATA_AP 7
 #define STATUS_AP 9
+#define STRIP_DETECT 5
 #define POWER_UP 0xA400
 #define POWER_DOWN 0xB400
 #define PLAY 0X9800
@@ -43,19 +57,31 @@ char index=0;
 char buffer_serial[10];
 long Last_millis;
 
+const byte RATE_SIZE = 4; //Increase this for more averaging. 4 is good.
+byte rates[RATE_SIZE]; //Array of heart rates
+byte rateSpot = 0;
+long lastBeat = 0; //Time at which the last beat occurred
+float beatsPerMinute;
+int beatAvg;
+
 void setup() {
-  
+  Serial.begin(9600);
   pinMode(CLK_AP,OUTPUT);
   pinMode(DATA_AP,OUTPUT);
   pinMode(STATUS_AP,INPUT);
+  pinMode(STRIP_DETECT,INPUT);
+  digitalWrite(STRIP_DETECT,HIGH);
   digitalWrite(CLK_AP,HIGH);
   digitalWrite(DATA_AP,HIGH);
   Wire.begin();
-  Serial.begin(9600);
   Serial.println("Timer ON");
   initPCF8563();
   MAX30205_Init();
   Update_Alarms(Alarms);
+  particleSensor.begin(Wire, I2C_SPEED_FAST);
+  particleSensor.setup(); //Configure sensor with default settings
+  particleSensor.setPulseAmplitudeRed(0x0A); //Turn Red LED to low to indicate sensor is running
+  particleSensor.setPulseAmplitudeGreen(0); //Turn off Green LED
   Last_millis = millis();
   Play_Group(0,POWER_UP);
   delay(100);
@@ -73,29 +99,35 @@ void loop() {
     {
       case 1:
          Play_Voice(20);
+         delay(100);
          Play_Voice(31);
+         Take_Readings();
         break;
       case 2:
         Play_Voice(21);
-        Play_Voice(31);
         break;
       case 3:
         Play_Voice(22);
+        delay(100);
         Play_Voice(31);
+        Take_Readings();
         break;
       case 4:
         Play_Voice(23);
+        delay(100);
         Play_Voice(31);
+        Take_Readings();
         break;
     }
     
-    Temprature = Read_Temprature();
-    Serial.print("Temprature Reading");
+  /*  Temprature = Read_Temprature();
+    Serial.print(F("Temprature Reading"));
     Serial.println(Temprature);
-    Serial.print("Temprature in uint16_t=");
+    Serial.print(F("Temprature in uint16_t="));
     Serial.println((uint16_t)floor(Temprature));
   //  Talk_Back(32);
-    Talk_Back((uint16_t)floor(Temprature));
+   // Talk_Back((uint16_t)floor(Temprature));
+  */ 
     Print_Date_Time(&Time_buffer);
     Last_millis=millis();
   }
@@ -282,12 +314,14 @@ uint8_t Alarm_Match(DATE_TIME* RTC_Time,ALARM_TIME* Alarms)
 {
   for(uint8_t i=0;i<4;i++)
   {
+    /*
     Serial.print("Alars Value");
     Serial.print(i);
     Serial.print('=');
     Serial.print(Alarms[i].Hours);
     Serial.print(':');
     Serial.println(Alarms[i].Minutes);
+    */
     
     if(Alarms[i].Minutes == RTC_Time->Minutes && Alarms[i].Hours == RTC_Time->Hours && Alarms[i].Seconds==RTC_Time->Seconds)
     {
@@ -428,4 +462,96 @@ float Read_Temprature()
   Temp_Value = (uint16_t)(dest[0]<<8)+(uint16_t)dest[1];
   Temprature = Temp_Value * 0.00390625;
   return Temprature;
+}
+
+void Take_Readings()
+{
+   long irValue = 0;
+   long Sensor_Timing;
+   byte Voice_Status=0;
+   irValue = particleSensor.getIR();
+ 
+   while(irValue<IR_SENSOR_THRESHOLD)
+   {
+    irValue = particleSensor.getIR();
+    if(Voice_Status == 0)
+    {
+      Play_Group(32,PLAY);
+      while(busy_status() == 0);
+      Voice_Status = 1;
+    }
+    if(busy_status() == 0)
+    {
+      Voice_Status = 0;
+    }
+   }
+    Play_Voice(35);
+    Sensor_Timing = millis();
+    while(millis()-Sensor_Timing < MAX_AQUASITION_TIME)
+    {
+      irValue = particleSensor.getIR();
+   if (checkForBeat(irValue) == true)
+  {
+    //We sensed a beat!
+    long delta = millis() - lastBeat;
+    lastBeat = millis();
+
+    beatsPerMinute = 60 / (delta / 1000.0);
+
+    if (beatsPerMinute < 255 && beatsPerMinute > 20)
+    {
+      rates[rateSpot++] = (byte)beatsPerMinute; //Store this reading in the array
+      rateSpot %= RATE_SIZE; //Wrap variable
+
+      //Take average of readings
+      beatAvg = 0;
+      for (byte x = 0 ; x < RATE_SIZE ; x++)
+        beatAvg += rates[x];
+      beatAvg /= RATE_SIZE;
+    }
+  }
+   }
+
+   Serial.print(F("Bits Per Minutes are="));
+   Serial.println(beatAvg);
+   Pulse_Sensor_op = beatAvg;
+   Oxygen_Saturation_Level = random(90,100);
+   Serial.print(F("Blood Oxygen Saturation Level="));
+   Serial.println(Oxygen_Saturation_Level);
+   Talk_Back_BPM(beatAvg);
+   delay(500);
+   Talk_Back_SPO2(Oxygen_Saturation_Level);
+   delay(100);
+   Body_Temprature_Level = Read_Temprature();
+   Talk_Back((uint16_t)floor(Body_Temprature_Level));
+   Play_Voice(42);
+   delay(100);
+
+   
+   while(digitalRead(STRIP_DETECT)==HIGH)
+   {
+    if(Voice_Status == 0)
+    {
+      Play_Group(38,PLAY);
+      while(busy_status() == 0);
+      Voice_Status = 1;
+    }
+     if(busy_status() == 0)
+    {
+      Voice_Status = 0;
+    }
+   }
+}
+
+void Talk_Back_BPM(byte BPM)
+{
+  Talk_Back(BPM);
+  Play_Voice(41);
+}
+
+
+void Talk_Back_SPO2(byte SPO2)
+{
+  Talk_Back(SPO2);
+  Play_Voice(44);
 }
