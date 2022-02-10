@@ -605,7 +605,7 @@ void ESP8266_connect()
   }
 
   countTrueCommand = 0;
-  sendCommand("AT+CWJAP=\"DJ_LAPTOP\",\"12345678\"",15,"OK");
+  sendCommand("AT+CWJAP=\"MEEN-TECHNOLOGY\",\"12345678\"",15,"OK");
    if(countTrueCommand == 1)
   {
   Serial.println("ESP Connected to AP");
