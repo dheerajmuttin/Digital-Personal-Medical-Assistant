@@ -6,9 +6,9 @@
 
 // Template ID, Device Name and Auth Token are provided by the Blynk.Cloud
 // See the Device Info tab, or Template settings
-#define BLYNK_TEMPLATE_ID           "TMPLN_F9UDBv"
-#define BLYNK_DEVICE_NAME           "Quickstart Device"
-#define BLYNK_AUTH_TOKEN            "X7mq-IaxuIgGXk4Qdq9heCG9FS_gbYxp"
+#define BLYNK_TEMPLATE_ID "TMPL9h-ubjXJ"
+#define BLYNK_DEVICE_NAME "Vishal Home"
+#define BLYNK_AUTH_TOKEN "xknr9g7AKQC_KA7vxYgB6dzMbgTneSYE"
 
 
 // Comment this out to disable prints and save space
@@ -22,22 +22,15 @@ char auth[] = BLYNK_AUTH_TOKEN;
 
 // Your WiFi credentials.
 // Set password to "" for open networks.
-char ssid[] = "DJ_LAPTOP";
-char pass[] = "12345678";
+char ssid[] = "POCO M2 Pro";
+char pass[] = "vishal@12345";
 
 BlynkTimer timer;
 
 // This function is called every time the Virtual Pin 0 state changes
+
+
 BLYNK_WRITE(V0)
-{
-  // Set incoming value from pin V0 to a variable
-  int value = param.asInt();
-
-  // Update state
-  Blynk.virtualWrite(V1, value);
-}
-
-BLYNK_WRITE(V4)
 {
   // Set incoming value from pin V0 to a variable
   int value = param.asInt();
@@ -47,7 +40,7 @@ BLYNK_WRITE(V4)
   digitalWrite(D0, value);
 }
 
-BLYNK_WRITE(V5)
+BLYNK_WRITE(V1)
 {
   // Set incoming value from pin V0 to a variable
   int value = param.asInt();
